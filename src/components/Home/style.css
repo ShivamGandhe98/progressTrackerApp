@@ -1,0 +1,130 @@
+
+
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 50px; 
+    }
+
+    .logo-image {
+        width: 100%; 
+        height: auto; 
+    }
+
+    .right-container {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+}
+/*
+@media screen and (max-width: 420px) {
+    .signuptext {
+        font-size: 24px; 
+    }
+
+    .sign-up {
+        width: 100%; 
+        margin-left: 0; 
+    }
+}
+
+*/
+.container{
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly;
+    background-color: rgb(54, 11, 54);
+    height: 527px;
+    width: 1336px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 100px;
+    color: beige;
+}
+.logo-image{
+    border-radius: 10px 10px;
+    width: 600px;
+    height: 400px;
+}
+.right-container{
+    display: flex;
+    flex: 0.5;
+    /* width: 600px;
+    height: 400px;
+    margin-top: 70px;
+    border: 1px solid white;
+    border-radius: 10px 10px; */
+}
+.input{
+    width: 95%;
+    height: 33px;
+    font-size: 18px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px 5px;
+    background-color: azure;
+}
+label{
+    margin: 10px;
+}
+/* .signForm{
+    width: 500px;
+}
+.login-form{
+    display: flex;
+    justify-content: center;
+    height: 430px;
+    border: 2px solid white;
+    border-radius: 20px;
+    margin: 10px;
+} */
+
+.logForm{
+    margin: 30px 20px 20px 20px;
+    width: 500px;
+}
+.logForm label{
+    font-size: 20px;
+}
+.signin-form{
+    display: flex;
+    justify-content: center;
+    margin: 41px 10px 10px 10px;
+    height: 393px;
+    border: 2px solid white;
+    border-radius: 20px;
+}
+.signintext,.signuptext{
+    background-color: transparent;
+    font-size: 30px;
+}
+.sign-up{
+    margin: 10px 10px 10px 10px;
+    width: 95%;
+    cursor: pointer;
+    font-size: 20px;
+    color: rgb(213, 225, 225);
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(157, 40, 157);
+}
+
+.login-here, .signup-here{
+    color: rgb(60, 60, 228);
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+}
+.left-container h1{
+    margin-bottom: 5px;
+    text-align: center;
+    flex: 0.5;
+    /* display: flex;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif; */
+}
+.ptag{
+    background-color: transparent;
+}
