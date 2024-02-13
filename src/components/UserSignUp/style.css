@@ -11,14 +11,13 @@
   }
 
 .login-form {
-    background: rgb(98, 98, 237);
+    background: rgb(125, 125, 216);
     padding: 20px;
     border-radius: 8px;
-    width: 300px;
+    width: 350px;
     text-align: center;
 }
 .close {
-    /* position: absolute; */
     top: 10px;
     right: 10px;
     font-size: 20px;

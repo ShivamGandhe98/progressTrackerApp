@@ -8,15 +8,12 @@ const UserDashboard = () => {
   const [userTask, setUserTask] = useState([]);
   const [textArea, setTextArea] = useState('');
   const [userName, setUsername] = useState('');
-  const [userTaskTitle, setUserTaskTitle] = useState('');
   const navigate = useNavigate();
-  const [percentagefield, setPercentage_field] = useState(0);
-  const  [percentage,setPercentage]=useState(0)
 
-  const handleIncreaseProgress = (index) => {
+  const handleProgressChange = (index, newValue) => {
     const updatedUserTasks = [...userTask];
     const updatedUser = { ...updatedUserTasks[index] };
-    updatedUser.percentage = Math.min(updatedUser.percentage + 10, 100);
+    updatedUser.percentage = newValue;
     updatedUserTasks[index] = updatedUser;
     setUserTask(updatedUserTasks);
   };
@@ -26,17 +23,17 @@ const UserDashboard = () => {
     localStorage.removeItem('username');
     navigate('/');
   };
-  // console.log(userTask)
+
   const handleEnter = async (index) => {
     const taskData = {
       task_id: userTask[index].task_id,
       user_id: userTask[index].user_id,
       percentage: userTask[index].percentage,
-      textarea: textArea, 
-    }
-    console.log('tasktData',taskData);
+      textarea: textArea,
+    };
+    console.log('taskData', taskData);
     await axios
-      .post('http://192.168.1.83:5000/submit_task', taskData)
+      .post('http://192.168.1.83:5000/task/submit_task', taskData, config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -45,80 +42,61 @@ const UserDashboard = () => {
       })
       .catch((err) => console.log(err));
   };
-  const token = localStorage.getItem('token')
-  const config = {    
+  const token = localStorage.getItem('token');
+  const config = {
     headers: {
       'Authorization': token,
     },
   };
-  
+
   const fetchData = async () => {
-    
-    // const paramString = paramId.toString();
-    console.log('paramId',paramId)
-    const id = paramId._id
-    console.log(id)
-    
-    await axios.get(`http://192.168.1.83:5000/gettask?id=${id}`,config)
-    .then((res) => {
-      setUserTask(res.data.tasks);
-      console.log(res)
-    })
-    .catch((err) => console.log(err))
-    
-  }
+    // console.log('paramId', paramId);
+    const id = paramId._id;
+    // console.log(id);
+
+    await axios
+      .get(`http://192.168.1.83:5000/task/gettask?id=${id}`, config)
+      .then((res) => {
+        setUserTask(res.data);
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    if(token===null){
+    const token = localStorage.getItem('token');
+    if (token === null) {
       navigate('/');
     }
     const name = localStorage.getItem('username');
-    if(userName===''){
+    if (userName === '') {
       setUsername(name);
     }
     fetchData();
-    
-  },[])
+  }, []);
   console.log(userTask);
-  // console.log(percentagefield);
-  // useEffect(() => {
-  //   // Sets userTaskTitle to the first task title
-  //   if (userTask && userTask.tasks && userTask.tasks.length > 0) {
-  //     userTask.tasks.forEach(task => {
-  //       setUserTaskTitle(task.title);
-  //       setPercentage_field(task.percentage_field);
-  //     });
-  //     // setUserTaskTitle(userTask.tasks[0].title);
-
-  //     // if (firstLogin) {
-  //     //   setProgress(progress);
-  //     //   setFirstLogin(false);
-  //     // } else {
-
-  //     //   setProgress(userTask.tasks[0].percentage_field);
-  //     // }
-  //   }
-  // }, [userTask, percentagefield]);
-
-  
-  console.log(userName);
+  const myStyle = {
+    height: userTask.length < 3 ? '100vh' : 'auto',
+  };
+  // console.log(userName);
 
   return (
-    <div className='containerD'>
-        <div className="dashboard" style={{display:'flex',width:"100%",justifyContent:'space-between'}}>
-        <div><h1>Dashboard</h1></div>
-        <div style={{display:'flex'}}><p>Hello {userName}</p>
-        <button className='userSignout' onClick={handleLogout}>
-          Sign Out
-        </button>
+    <div className='containerDash' style={{display:'flex',flex:'1',flexDirection:'row',height:'100vh'}}>
+      <div style={{display:'flex',flex:'0.2',width:'300px',flexDirection:'column',background:'purple', textAlign:'center'}}><h1 style={{color:'white'}}>Dashboard</h1></div>
+      <div style={{display:'flex',flex:'0.8',flexDirection:'column'}}>
+      <div className="dashboard2" style={{ display: 'flex', width: "100%", justifyContent: 'space-between' }}>
+        <div></div>
+        <div style={{ display: 'flex' }}><p>Hello {userName}</p>
+          <button className='userSignout' onClick={handleLogout}>
+            Sign Out
+          </button>
         </div>
       </div>
-      <div className='task'>
+      <div className='task' style={myStyle}>
 
-      {userTask && userTask.length > 0 ? (
-          userTask.map((user,index) => (
-              (
+        {userTask && userTask.length > 0 ? (
+          userTask.map((user, index) => (
+            (
               <div className='taskForm' key={user.task_id}>
                 <label className='eleWidth'>Task Title:</label>
                 <React.Fragment>
@@ -130,16 +108,20 @@ const UserDashboard = () => {
                   placeholder='write here'
                   onChange={(e) => setTextArea(e.target.value)}
                 />
-                  <div className='progress-bar'>
-                    <div className='progress-bar-fill' style={{ width: `${user.percentage}%` }}>
-                    {`${user.percentage}%`}
-                    </div>
-                  </div>
-                  <button type='button' onClick={()=>{handleIncreaseProgress(index)}}>
-                  Increase Progress
-                </button>{' '}
-                <button type='submit' onClick={()=> handleEnter(index)}>
-                  Enter
+                <div className='progress-bar'>
+                  <input
+                    style={{width:'100%'}}
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="10"
+                    value={user.percentage}
+                    onChange={(e) => handleProgressChange(index, e.target.value)}
+                  />
+                  {`${user.percentage}%`}
+                </div>
+                <button type='submit' onClick={() => handleEnter(index)}>
+                  Submit
                 </button>
               </div>
             )
@@ -148,6 +130,9 @@ const UserDashboard = () => {
           <h1 style={{ color: 'red' }}>You don't have any tasks to perform</h1>
         )}
       </div>
+      </div>
+      
+      
     </div>
   );
 };

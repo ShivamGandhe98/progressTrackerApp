@@ -1,25 +1,30 @@
 .task {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: flex-start;
-    background-color: rgb(69, 11, 69);
+    background-color: rgb(206, 199, 206);
     width: 100%;
+    height: 100%;
     align-items: center;
-    height: auto;
   }
   .userSignout{
     margin-right: 10px;
     margin-top: 10px;
     height: 44px;
   }
-
-  .dashboard h1, p {
-    background-color: transparent;
-    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+  .dashboard2{
+    background-color: rgb(149, 201, 227);
+    
   }
-  .dashboard p{
+  .dashboard2 h1, p {
+    background-color: transparent;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  .dashboard2 p{
     font-weight: bold;
-    text-shadow: 2px 0px 9px lightblue;
+    font-size: 20px;
+    text-shadow: 2px 0px 9px rgb(102, 193, 188);
     color: rgb(18, 39, 89);
   }
   .taskForm {
@@ -28,9 +33,11 @@
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: auto;
   }
-
+  .taskForm h3{
+    margin-left: 12px;
+  }
   .eleWidth {
     background-color: transparent;
     display: block;
@@ -58,9 +65,10 @@
 
   .progress-bar {
     background-color: #e0e0e0;
-    height: 25px;
+    height: 45px;
+    font-size: 18px;
     border-radius: 8px;
-    overflow: hidden;
+    /* overflow: visible; */
     margin-bottom: 15px;
   }
 
@@ -72,7 +80,7 @@
   }
 
   button {
-    background-color: #4caf50;
+    background-color: #357ae8;
     margin-top: 10px;
     margin-left: 10px;
     height: 44px;
@@ -88,10 +96,3 @@
   button:hover {
     background-color: #45a049;
   }
-
-  /* canvas {
-    width: 100%;
-    height: 50px;
-    border-radius: 8px;
-    background-color: #e0e0e0;
-  } */

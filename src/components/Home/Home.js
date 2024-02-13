@@ -36,7 +36,7 @@ const Home = () => {
     const handleSignInFormSubmit = async (e) => {
       console.log('logindata', loginData)
       e.preventDefault();
-      await axios.post('http://192.168.1.83:5000/login', loginData)
+      await axios.post('http://192.168.1.83:5000/auth/login', loginData)
         .then(res => {
           const token = res.data.token;
           const name = res.data.username;

@@ -25,15 +25,9 @@ const UserSignUp = ({ onClose }) => {
             alert("User Already Exist or All fields are required")
           }
         })
-    // Add your form submission logic here
+
     console.log('Form submitted:', formData);
-    // setFormData({
-    //   username: ' ',
-    //   email: ' ',
-    //   role: '',
-    //   password: ' ',
-    // })
-    // Close the popup after form submission
+
     onClose();
   };
 
